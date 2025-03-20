@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1beta1
+kind: Component
+metadata:
+  name: {{ name }}
+  description: {{ description }}
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: tool
+  lifecycle: experimental
+  owner: platform-engineering
