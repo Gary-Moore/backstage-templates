@@ -1,0 +1,6 @@
+# Ignore local system and editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
