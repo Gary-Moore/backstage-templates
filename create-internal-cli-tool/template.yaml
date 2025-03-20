@@ -19,7 +19,7 @@ spec:
         description:
           type: string
           title: Description
-    - title: Repo Settings
+    - title: GitHub Settings
       properties:
         visibility:
           type: string
@@ -36,9 +36,10 @@ spec:
         values:
           name: '{{ parameters.name }}'
           description: '{{ parameters.description }}'
-    - id: register
-      name: Register in catalog
-      action: catalog:register
+    - id: publish
+      name: Create GitHub Repo & Push Files
+      action: publish:github
       input:
-        repoContentsUrl: '{{ steps["fetch-base"].output.repoContentsUrl }}'
-        catalogInfoPath: './catalog-info.yaml'
+        repoUrl: github.com?owner=Gary-Moore&repo={{ parameters.name }}
+        description: '{{ parameters.description }}'
+        visibility: '{{ parameters.repoVisibility }}
