@@ -1,0 +1,44 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: create-internal-cli-tool
+  title: Create Internal CLI Tool
+  description: Scaffold a new internal CLI tool repo with TechDocs and catalog info.
+spec:
+  owner: platform-engineering
+  type: service
+  parameters:
+    - title: Tool Information
+      required:
+        - name
+        - description
+      properties:
+        name:
+          type: string
+          title: Tool name
+        description:
+          type: string
+          title: Description
+    - title: Repo Settings
+      properties:
+        visibility:
+          type: string
+          title: Repository visibility
+          enum:
+            - public
+            - private
+  steps:
+    - id: fetch-base
+      name: Fetch Base Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: '{{ parameters.name }}'
+          description: '{{ parameters.description }}'
+    - id: register
+      name: Register in catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: '{{ steps["fetch-base"].output.repoContentsUrl }}'
+        catalogInfoPath: './catalog-info.yaml'
